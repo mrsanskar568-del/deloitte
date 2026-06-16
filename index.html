@@ -438,4 +438,458 @@
     .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
       border-color:var(--blue); box-shadow:0 0 0 3px rgba(26,107,255,.1);
     }
-    .form-group textarea { min-height:120px; resize:verti
+    .form-group textarea { min-height:120px; resize:vertical; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .form-submit {
+      background:var(--grad); color:#fff; border:none; padding:14px;
+      border-radius:100px; font-family:'Space Grotesk',sans-serif;
+      font-size:0.97rem; font-weight:700; cursor:pointer;
+      box-shadow:0 6px 20px rgba(255,107,26,.25);
+      transition:opacity .2s, transform .2s;
+    }
+    .form-submit:hover { opacity:.88; transform:translateY(-2px); }
+
+    /* ── WHATSAPP FLOATING BUTTON ── */
+    .wa-float {
+      position: fixed !important;
+      bottom: 28px !important;
+      right: 28px !important;
+      z-index: 99999 !important;
+      display: flex !important;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+    .wa-float-tooltip {
+      background: #111; color: #fff;
+      padding: 8px 14px; border-radius: 10px;
+      font-size: 0.82rem; font-weight: 600;
+      white-space: nowrap; opacity: 0;
+      transform: translateX(10px);
+      transition: opacity .3s, transform .3s;
+      pointer-events: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,.25);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .wa-float:hover .wa-float-tooltip { opacity: 1; transform: translateX(0); }
+    .wa-float-btn {
+      width: 64px; height: 64px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-decoration: none !important;
+      box-shadow: 0 6px 28px rgba(37,211,102,.55), 0 2px 8px rgba(0,0,0,.15);
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+      animation: wa-bounce 3s ease-in-out infinite;
+      border: 3px solid #fff;
+    }
+    .wa-float-btn:hover {
+      transform: scale(1.1) !important;
+      box-shadow: 0 12px 36px rgba(37,211,102,.6) !important;
+      animation: none;
+    }
+    .wa-float-btn svg {
+      width: 34px; height: 34px;
+      fill: #ffffff;
+      display: block;
+      flex-shrink: 0;
+    }
+    .wa-float-btn::before {
+      content: '';
+      position: absolute; inset: -6px;
+      border-radius: 50%;
+      border: 2.5px solid rgba(37,211,102,.55);
+      animation: wa-ring 2.2s ease-out infinite;
+    }
+    .wa-float-btn::after {
+      content: '';
+      position: absolute; inset: -6px;
+      border-radius: 50%;
+      border: 2.5px solid rgba(37,211,102,.3);
+      animation: wa-ring 2.2s ease-out 0.7s infinite;
+    }
+    @keyframes wa-ring {
+      0%   { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.75); opacity: 0; }
+    }
+    @keyframes wa-bounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-7px); }
+    }
+    .wa-badge {
+      position: absolute; top: -5px; right: -5px;
+      width: 20px; height: 20px;
+      background: #FF6B1A; border-radius: 50%;
+      border: 2.5px solid #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem; font-weight: 800; color: #fff;
+      font-family: sans-serif;
+      animation: pulse 2s infinite;
+    }
+
+    /* ── FOOTER ── */
+    footer { background:var(--ink); color:rgba(255,255,255,.4); padding:40px 5%; text-align:center; }
+    .footer-logo { font-family:'Syne',sans-serif; font-size:1.35rem; font-weight:800; display:block; margin-bottom:14px; }
+    .footer-logo span {
+      background:var(--grad); -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    footer p { font-size:0.85rem; }
+    footer strong { color:rgba(255,255,255,.75); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:800px) {
+      .hero-grid, .about-grid, .delivery-grid, .contact-wrap { grid-template-columns:1fr; gap:40px; }
+      .hero-visual { display:none; }
+      .form-row { grid-template-columns:1fr; }
+      nav ul { display:none; }
+      .wa-float { bottom:20px; right:20px; }
+    }
+    @media (prefers-reduced-motion:reduce) { *{animation:none!important;transition:none!important;} }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Sanskar<span>.</span></a>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge"><span class="hero-badge-text">Available for new projects</span></div>
+      <h1>Your business deserves a <em>stunning</em> website.</h1>
+      <p class="hero-sub">Professional web design at minimal cost — built for startups, local businesses, portfolios, and more. Fast delivery, clean code, real results.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary">Get Your Website →</a>
+        <a href="#services" class="btn-secondary">See What I Build</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="mock-browser">
+        <div class="mock-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="mock-url">yourwebsite.com</div>
+        </div>
+        <div class="mock-body">
+          <div class="mock-hero-bar"><span class="mock-hero-bar-text">Welcome to Your Business</span></div>
+          <div class="mock-cards">
+            <div class="mock-card">
+              <div class="mock-card-icon" style="background:rgba(26,107,255,.12)"></div>
+              <div class="mock-card-line"></div><div class="mock-card-line short"></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-card-icon" style="background:rgba(255,107,26,.12)"></div>
+              <div class="mock-card-line"></div><div class="mock-card-line short"></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-card-icon" style="background:rgba(255,165,0,.12)"></div>
+              <div class="mock-card-line"></div><div class="mock-card-line short"></div>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-pill"><span class="stat-num">30+</span><span class="stat-label">Websites built</span></div>
+            <div class="stat-pill"><span class="stat-num">1yr</span><span class="stat-label">Experience</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="float-badge">
+        <div class="float-badge-icon">🚀</div>
+        <div class="float-badge-text">
+          <span class="float-badge-main">Delivery from 10 days</span>
+          <span class="float-badge-sub">Minimal cost guaranteed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-tag">What I Do</div>
+    <h2>Websites built for every goal</h2>
+    <p class="section-sub">From a simple landing page to a full business site — I deliver clean, professional results without the agency price tag.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(26,107,255,.18)">🏢</div>
+        <h3>Business Websites</h3>
+        <p>Showcase your services, location, and contact details. Perfect for shops, offices, clinics, and local businesses looking to build online presence.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(255,107,26,.18)">🛒</div>
+        <h3>E-Commerce Stores</h3>
+        <p>Sell your products online. I build clean, easy-to-manage stores that make buying simple for your customers.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(255,200,50,.18)">👤</div>
+        <h3>Portfolio & Resume Sites</h3>
+        <p>Stand out to employers and clients. Showcase your work, skills, and achievements with a personal site that makes an impression.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(26,107,255,.18)">🎓</div>
+        <h3>Educational & Info Sites</h3>
+        <p>Coaching, tutoring, training academies — build a professional digital home for your learning-focused venture.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(255,107,26,.18)">🚀</div>
+        <h3>Startup Landing Pages</h3>
+        <p>Launch fast with a high-impact landing page designed to convert visitors into leads or early adopters.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(255,200,50,.18)">🛠️</div>
+        <h3>Custom Projects</h3>
+        <p>Have something specific in mind? Get in touch and describe your idea — I'll figure out how to build it for you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="process">
+  <div class="section-inner">
+    <div class="section-tag">How It Works</div>
+    <h2>From idea to live site</h2>
+    <p class="section-sub">A simple, transparent process so you always know what's happening with your project.</p>
+    <div class="process-list">
+      <div class="process-step"><div class="step-num">01</div><div class="step-body"><h3>You reach out</h3><p>Call or message me on WhatsApp with your idea, purpose, and any references. No forms or long questionnaires — just a conversation.</p></div></div>
+      <div class="process-step"><div class="step-num">02</div><div class="step-body"><h3>We plan your website</h3><p>I understand what you need, what pages to include, and what vibe fits your brand. Then I share a clear plan and cost estimate.</p></div></div>
+      <div class="process-step"><div class="step-num">03</div><div class="step-body"><h3>I design and build</h3><p>I get to work creating your website. You'll get updates along the way and can share feedback at any stage.</p></div></div>
+      <div class="process-step"><div class="step-num">04</div><div class="step-body"><h3>Review and revisions</h3><p>You review the finished site. I make any changes needed until you're fully satisfied with the result.</p></div></div>
+      <div class="process-step"><div class="step-num">05</div><div class="step-body"><h3>Your site goes live</h3><p>Once approved, your website is published and ready for the world. I'll guide you on how to manage it going forward.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-inner">
+    <div class="section-tag">Investment</div>
+    <h2>Affordable, honest pricing</h2>
+    <p class="section-sub">Professional quality websites at a fraction of agency cost. Contact me for an exact quote based on your needs.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-price">Low Cost</div>
+        <div class="pricing-desc">For individuals and simple businesses</div>
+        <ul class="pricing-features">
+          <li>Up to 3 pages</li>
+          <li>Mobile responsive design</li>
+          <li>Contact section</li>
+          <li>Basic SEO setup</li>
+          <li>30–40 day delivery</li>
+        </ul>
+        <a href="#contact" class="pricing-cta outline">Get a Quote</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="featured-badge">Most Popular</div>
+        <div class="pricing-tier">Business</div>
+        <div class="pricing-price">Best Value</div>
+        <div class="pricing-desc">For businesses that want to impress</div>
+        <ul class="pricing-features">
+          <li>Up to 6 pages</li>
+          <li>Custom design & branding</li>
+          <li>Contact form</li>
+          <li>Image gallery / portfolio</li>
+          <li>Google Maps integration</li>
+          <li>SEO optimized</li>
+          <li>30–40 day delivery</li>
+        </ul>
+        <a href="#contact" class="pricing-cta filled">Get a Quote</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-tier">Urgent</div>
+        <div class="pricing-price">Fast Track</div>
+        <div class="pricing-desc">When you need it done quickly</div>
+        <ul class="pricing-features">
+          <li>Delivered in 10–20 days</li>
+          <li>All Business features included</li>
+          <li>Priority communication</li>
+          <li>Express revisions</li>
+        </ul>
+        <a href="#contact" class="pricing-cta outline">Get a Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual">
+      <div class="about-name">Sanskar Srivastava</div>
+      <div class="about-title">Web Developer & Designer</div>
+      <p>CS student with real-world skills — I build websites that actually work for your business goals, not just look good in a portfolio.</p>
+      <div class="about-stats">
+        <div class="about-stat"><div class="about-stat-num">1+</div><div class="about-stat-label">Year of Experience</div></div>
+        <div class="about-stat"><div class="about-stat-num">₹Low</div><div class="about-stat-label">Minimal Cost</div></div>
+        <div class="about-stat"><div class="about-stat-num">10d</div><div class="about-stat-label">Fastest Delivery</div></div>
+        <div class="about-stat"><div class="about-stat-num">100%</div><div class="about-stat-label">Custom Built</div></div>
+      </div>
+    </div>
+    <div class="about-content">
+      <div class="section-tag">About Me</div>
+      <h2>A developer who takes your project personally</h2>
+      <p>I'm Sanskar Srivastava — a Computer Science student in my Diploma (Polytechnic) program who builds professional websites for real clients at an honest price.</p>
+      <p>Unlike large agencies, you work directly with me. No middlemen, no vague timelines, no surprise charges. Just straightforward web development built around what your business actually needs.</p>
+      <p>Whether you're launching a new venture, upgrading an old site, or building your personal brand — I'll make it happen.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">HTML & CSS</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Responsive Design</span>
+        <span class="skill-tag">SEO Basics</span>
+        <span class="skill-tag">UI/UX Design</span>
+        <span class="skill-tag">Fast Delivery</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section id="delivery">
+  <div class="section-inner">
+    <div class="section-tag">Timeline</div>
+    <h2>Fast. Reliable. On schedule.</h2>
+    <div class="delivery-grid">
+      <div class="delivery-card standard">
+        <div class="delivery-label">Standard Delivery</div>
+        <div class="delivery-time">30–40 days</div>
+        <div class="delivery-desc">Carefully crafted at a relaxed pace. Best for projects where quality and cost efficiency matter most. Includes full revisions.</div>
+      </div>
+      <div class="delivery-card urgent">
+        <div class="delivery-label">🔥 Urgent Delivery</div>
+        <div class="delivery-time">10–20 days</div>
+        <div class="delivery-desc">Need it fast? I prioritize your project and deliver under tight timelines without cutting corners.</div>
+      </div>
+    </div>
+    <div class="delivery-note">
+      <strong>Note:</strong> Timelines depend on the size and complexity of your project. Once we discuss your requirements, I'll give you a precise delivery date — and I stick to it.
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <div class="section-tag">Let's Talk</div>
+      <h2>Ready to build your website?</h2>
+      <p>Reach out directly via call or WhatsApp. I respond fast and love helping people bring their ideas to life online.</p>
+      <div class="contact-methods">
+        <a href="tel:6387244989" class="contact-method">
+          <div class="contact-method-icon">📞</div>
+          <div class="contact-method-info">
+            <span class="contact-method-label">Primary — Call or WhatsApp</span>
+            <span class="contact-method-value">+91 63872 44989</span>
+          </div>
+        </a>
+        <a href="tel:9454250168" class="contact-method">
+          <div class="contact-method-icon">📱</div>
+          <div class="contact-method-info">
+            <span class="contact-method-label">Alternate Number</span>
+            <span class="contact-method-value">+91 94542 50168</span>
+          </div>
+        </a>
+        <a href="https://wa.me/916387244989?text=Hi%20Sanskar!%20I%20want%20to%20discuss%20a%20website%20project." target="_blank" class="wa-direct-btn">
+          <span class="wa-direct-btn-icon">💬</span>
+          Message me directly on WhatsApp
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="contact-form">
+        <h3 style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:4px;">Send a message</h3>
+        <p style="color:var(--mid);font-size:0.88rem;margin-bottom:8px;">Fill this out and I'll get back to you within 24 hours.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">Your Name</label>
+            <input type="text" id="fname" placeholder="Rahul Sharma"/>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="+91 98765 43210"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="wtype">Website Type</label>
+          <select id="wtype">
+            <option>Business Website</option>
+            <option>E-Commerce Store</option>
+            <option>Portfolio / Resume</option>
+            <option>Educational / Info Site</option>
+            <option>Startup Landing Page</option>
+            <option>Other / Custom</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="msg">Tell me about your project</label>
+          <textarea id="msg" placeholder="Describe your business, what you need, any pages or features you have in mind..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleSubmit()">Send via WhatsApp →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="#">Sanskar<span>.</span></a>
+  <p>© 2025 Sanskar Srivastava · Web Design & Development · <strong>+91 63872 44989</strong></p>
+  <p style="margin-top:8px">Built with care to help your business grow online.</p>
+</footer>
+
+<!-- ── WHATSAPP FLOATING BUTTON ── -->
+<div class="wa-float">
+  <div class="wa-float-tooltip">Chat on WhatsApp</div>
+  <a class="wa-float-btn"
+     href="https://wa.me/916387244989?text=Hi%20Sanskar!%20I%20want%20to%20get%20a%20website%20made.%20Can%20we%20discuss%3F"
+     target="_blank"
+     rel="noopener"
+     aria-label="Chat on WhatsApp">
+    <!-- Official WhatsApp SVG icon -->
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 0C7.163 0 0 7.163 0 16c0 2.833.738 5.49 2.027 7.8L0 32l8.418-2.007A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 01-6.747-1.836l-.484-.287-5.002 1.194 1.215-4.87-.317-.502A13.266 13.266 0 012.667 16C2.667 8.637 8.637 2.667 16 2.667S29.333 8.637 29.333 16 23.363 29.333 16 29.333zm7.27-9.945c-.398-.199-2.354-1.162-2.72-1.294-.365-.133-.63-.199-.896.199-.265.398-1.029 1.294-1.261 1.56-.232.265-.465.298-.863.1-.398-.2-1.681-.62-3.203-1.977-1.184-1.057-1.983-2.362-2.215-2.76-.232-.398-.025-.613.174-.811.179-.178.398-.465.597-.697.2-.232.266-.398.398-.664.133-.265.067-.497-.033-.697-.1-.199-.896-2.16-1.228-2.958-.323-.776-.65-.671-.896-.683l-.764-.013c-.265 0-.697.1-1.062.497-.365.398-1.394 1.362-1.394 3.322s1.427 3.854 1.626 4.12c.199.265 2.808 4.285 6.803 6.01.951.41 1.693.656 2.271.839.954.303 1.823.26 2.51.158.765-.114 2.354-.963 2.687-1.893.332-.93.332-1.727.232-1.893-.099-.166-.365-.265-.763-.464z"/>
+    </svg>
+    <div class="wa-badge">1</div>
+  </a>
+</div>
+
+<script>
+  function handleSubmit() {
+    const name = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const type = document.getElementById('wtype').value;
+    const msg = document.getElementById('msg').value.trim();
+    if (!name || !phone) {
+      alert('Please enter your name and phone number so Sanskar can reach you!');
+      return;
+    }
+    const text = `Hi Sanskar! I'm ${name}. I'm interested in a *${type}*.\n\nMy number: ${phone}\n\nProject details: ${msg || 'Will discuss on call.'}`;
+    window.open(`https://wa.me/916387244989?text=${encodeURIComponent(text)}`, '_blank');
+  }
+
+  // Nav active highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav ul a:not(.nav-cta)');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--blue)' : '';
+      a.style.fontWeight = a.getAttribute('href') === '#' + current ? '700' : '';
+    });
+  });
+</script>
+</body>
+</html>
